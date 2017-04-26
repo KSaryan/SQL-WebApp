@@ -112,7 +112,7 @@ def assign_grade(github, title, grade):
                                            'grade': grade})
 
     db.session.commit()
-
+    row = hackbright.get_project_by
     print "Successfully assigned grade of {grade} for {acct} in {title}".format(
         grade=grade, acct=github, title=title)
 
@@ -141,8 +141,9 @@ def get_grades_by_title(title):
     """Get a list of all student grades for a project by its title"""
 
     QUERY = """
-        SELECT student_github, grade
-        FROM Grades
+        SELECT first_name, last_name, grades.grade, students.github
+        FROM students
+        JOIN grades ON students.github = grades.student_github
         WHERE project_title = :title
         """
 
@@ -150,9 +151,9 @@ def get_grades_by_title(title):
 
     rows = db_cursor.fetchall()
 
-    for row in rows:
-        print "Student {acct} received grade of {grade} for {title}".format(
-            acct=row[0], grade=row[1], title=title)
+    # for row in rows:
+    #     print "Student {acct} received grade of {grade} for {title}".format(
+    #         acct=row[0], grade=row[1], title=title)
 
     return rows
 

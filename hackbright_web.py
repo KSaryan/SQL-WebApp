@@ -53,13 +53,28 @@ def add_student():
                             last=last,
                             github=github)
 
-@app.route ("/pick-project")
+@app.route("/pick-project")
 def choose_project():
+    """Chooses a project"""
 
-    return render_template()
+    return render_template("pick_project.html")
 
-    # Project Listing - make a html page that has a form to enter project name#
 
+@app.route("/project")
+def display_project():
+    """Displays projects"""
+
+    title = request.args.get('project')
+    row = hackbright.get_project_by_title(title)
+    rows = hackbright.get_grades_by_title(title)
+    description = row[1]
+    max_grade = row[2]
+
+    return render_template("display_project.html",
+                            title=title,
+                            description=description,
+                            max_grade=max_grade,
+                            rows=rows)
 
 if __name__ == "__main__":
     hackbright.connect_to_db(app)

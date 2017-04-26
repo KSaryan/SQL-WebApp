@@ -1,0 +1,17 @@
+<!doctype html>
+<html>
+<head>
+    <title>Project Tracker</title>
+</head>
+
+<body>
+
+  <form action="/project">
+      <label>Enter Project Name
+          <input type="text" name="project">
+      </label>
+      <input type="submit" value="Display Project">
+  </form>
+
+</body>
+</html>
